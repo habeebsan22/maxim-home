@@ -834,6 +834,14 @@ h1 em,
   overflow: hidden;
 }
 
+/* Figma frames this photo zoomed in and bottom-anchored rather than a
+   plain center-cover crop (data-node-id 6132:5819) — replicate its exact
+   background-size/position percentages instead of the shared default. */
+.chapter-card--family {
+  background-size: 131.92% 126.75%;
+  background-position: 49.7% 99.6%;
+}
+
 .chapter-card::after {
   content: "";
   position: absolute;
