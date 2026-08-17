@@ -835,11 +835,13 @@ h1 em,
 }
 
 /* Figma frames this photo zoomed in and bottom-anchored rather than a
-   plain center-cover crop (data-node-id 6132:5819) — replicate its exact
-   background-size/position percentages instead of the shared default. */
+   plain center-cover crop (data-node-id 6132:5819). Figma's card is 287px
+   wide vs our 320px, so the crop is driven off height only (matches
+   exactly) with width left to auto-scale — using both axes' percentages
+   verbatim would stretch the photo off its natural aspect ratio. */
 .chapter-card--family {
-  background-size: 131.92% 126.75%;
-  background-position: 49.7% 99.6%;
+  background-size: auto 126.75%;
+  background-position: 50% 100%;
 }
 
 .chapter-card::after {
