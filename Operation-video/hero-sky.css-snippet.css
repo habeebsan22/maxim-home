@@ -1,0 +1,5 @@
+/* Operation-video: replaces the plain `.hero__sky img { width: 100%; height:
+   auto; object-fit: cover; display: block; }` rule in css/styles.css so the
+   same sizing applies to both the fallback <img> and the <video>. */
+.hero__sky img,
+.hero__sky video { width: 100%; height: auto; object-fit: cover; display: block; }

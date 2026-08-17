@@ -1,0 +1,15 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Tooling config, not site content
+.claude/
+
+# Raw Figma exports and scratch source images kept locally, not deployed
+# (the optimized, in-use copies live in assets/)
+*.png
+*.jpg
+*.jpeg
+!assets/**
+!Operation-video/**

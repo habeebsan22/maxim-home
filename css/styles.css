@@ -1,0 +1,1705 @@
+:root {
+  --surface-bg-default: #ffffff;
+  --surface-bg-alt: #f2f5f8;
+  --surface-bg-action: #111111;
+  --surface-bg-primary: #d9edff;
+  --surface-bg-success: #deede2;
+  --surface-bg-warning: #fff0d5;
+  --surface-bg-error-filled: #e26d5a;
+  --surface-bg-success-filled: #579171;
+
+  --text-headings: #111111;
+  --text-body: #2b303b;
+  --text-neutral: #717784;
+  --text-disabled: #cdd7dd;
+  --text-accent: #136bf7;
+  --text-success: #579171;
+  --text-on-action: #ffffff;
+
+  --border-default: #cdd7dd;
+  --border-disabled: #dce3e9;
+
+  --font-display: "Playfair Display", serif;
+  --font-heading: "Geist", "Geist Fallback", sans-serif;
+  --font-body: "DM Sans", "DM Sans Fallback", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-body);
+  background: var(--surface-bg-default);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.16px;
+  white-space: nowrap;
+  transition: opacity 0.15s ease;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn-dark {
+  background: var(--surface-bg-action);
+  color: var(--text-on-action);
+}
+
+.btn-light {
+  background: var(--surface-bg-alt);
+  color: var(--text-headings);
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-accent);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.16px;
+}
+
+.link-arrow img {
+  width: 6px;
+  height: 12px;
+}
+
+.eyebrow {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 2.24px;
+  text-transform: uppercase;
+  color: var(--text-neutral);
+}
+
+.eyebrow--accent {
+  color: var(--text-accent);
+}
+
+.eyebrow--success {
+  color: var(--text-success);
+}
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 52px;
+  letter-spacing: -2.88px;
+  color: var(--text-headings);
+  margin: 0;
+}
+
+.section-heading em,
+h1 em,
+.hero-title em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.email-capture {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface-bg-default);
+  border: 1px solid var(--border-disabled);
+  border-radius: 20px;
+  padding: 4px 4px 4px 16px;
+}
+
+.email-capture input {
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-neutral);
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+}
+
+.email-capture .btn {
+  flex-shrink: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ===== Scroll-triggered entry animation ===== */
+/* .reveal fades up on first entering the viewport (see js/main.js, which
+   also auto-applies this class with a staggered transition-delay to the
+   direct children of any .reveal-group). Elements already in view on load
+   (hero) reveal immediately since the observer fires as soon as it starts
+   watching them, giving a natural page-load entrance for free. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== Header ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 0;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  padding: 0 32px;
+}
+
+.site-header__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 96px;
+  background: var(--surface-bg-default);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: -1;
+}
+
+.site-header__backdrop.is-visible {
+  opacity: 1;
+}
+
+.top-nav {
+  position: relative;
+  top: 24px;
+  height: min-content;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 26px;
+  width: 100%;
+  max-width: 1240px;
+  padding: 16px 32px;
+  border-radius: 40px;
+  background: var(--surface-bg-default);
+  box-shadow: 0 2px 8px rgba(101, 116, 134, 0.16);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-svg {
+  height: 22px;
+  width: auto;
+}
+
+.top-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.top-nav__links a {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-body);
+  transition: color 0.15s ease;
+}
+
+.top-nav__links a:hover {
+  color: var(--text-accent);
+}
+
+.top-nav__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.region-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 12px;
+  background: var(--surface-bg-alt);
+  border: 1px solid var(--border-disabled);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-body);
+}
+
+.flag {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.flag img { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.chevron {
+  width: 10px;
+  height: 6px;
+}
+
+.btn-sm {
+  padding: 12px 20px;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+/* ===== Hero ===== */
+/* Reference frame: Figma "Hero" section is exactly 1440x800. Horizontal
+   offsets below are expressed as % of that width so they stay correctly
+   proportioned as the fluid hero scales; vertical offsets are fixed px
+   since the hero's height itself is now pinned to Figma's exact 800px. */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 800px;
+  overflow: hidden;
+  background: #40b5e0;
+}
+
+.hero__sky {
+  position: absolute;
+  inset: 0;
+  bottom: -15px;
+  z-index: 0;
+}
+.hero__sky img { width: 100%; height: auto; object-fit: cover; }
+
+.hero__city {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+.hero__city img { width: 100%; display: block; }
+
+.hero__content {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: calc(50% - 99px);
+  transform: translate(-50%, -50%);
+  width: 900px;
+  max-width: calc(100% - 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+/* .hero__content already owns `transform` for its own centering — the
+   generic .reveal/.reveal.is-visible rules would otherwise clobber that
+   centering transform entirely rather than combining with it (CSS
+   transform isn't additive across separate rules). These more-specific
+   overrides compose both the centering translate and the reveal offset
+   into one transform value instead. */
+.hero__content.reveal {
+  transform: translate(-50%, -50%) translateY(28px);
+}
+
+.hero__content.reveal.is-visible {
+  transform: translate(-50%, -50%) translateY(0);
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 60px;
+  letter-spacing: -3.84px;
+  color: var(--text-headings);
+  margin: 0;
+  max-width: 660px;
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--text-body);
+  max-width: 634px;
+  margin: 0;
+}
+
+.hero .email-capture {
+  margin-top: 8px;
+}
+
+.hero__pill {
+  position: absolute;
+  z-index: 3;
+  top: 314px;
+  width: 152px;
+  height: 42px;
+}
+
+.hero__pill--left {
+  left: 11.0417%; /* 159 / 1440 */
+  top: 314px;
+  width: 152px;
+  animation: hero-wander-left 12s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.hero__pill--right {
+  left: 78.9583%; /* 1137 / 1440 */
+  top: 342px;
+  width: 149px;
+  animation: hero-wander-right 13s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation-delay: -4s;
+}
+
+/* Mimics a person idly moving a mouse: dwell at a point (identical values
+   held across a keyframe span), then a quick eased move to the next point,
+   in mostly-straight redirections rather than a continuous drift. Amplitude
+   stays well inside the ~34px+ measured clearance to the headline/subtitle,
+   so the pills never touch the text at any point in the loop. */
+@keyframes hero-wander-left {
+  0%, 10% { transform: translate(0, 0); }
+  16%, 33% { transform: translate(9px, -7px); }
+  39%, 54% { transform: translate(-7px, -9px); }
+  60%, 78% { transform: translate(-12px, 3px); }
+  83%, 94% { transform: translate(5px, 8px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes hero-wander-right {
+  0%, 9% { transform: translate(0, 0); }
+  15%, 30% { transform: translate(-6px, 5px); }
+  37%, 50% { transform: translate(8px, -4px); }
+  58%, 74% { transform: translate(-9px, -8px); }
+  81%, 93% { transform: translate(4px, 7px); }
+  100% { transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__pill--left,
+  .hero__pill--right {
+    animation: none;
+  }
+}
+
+.pill {
+  position: absolute;
+  top: 14px;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.28px;
+  color: var(--text-on-action);
+  white-space: nowrap;
+}
+
+.hero__pill--left .pill { left: 0; }
+.hero__pill--right .pill { left: 15px; }
+
+.pill--success { background: var(--surface-bg-success-filled); border: 1px solid #9cd3b5; }
+.pill--error { background: var(--surface-bg-error-filled); border: 1px solid #ff9583; }
+
+.pill-arrow {
+  position: absolute;
+  width: 19px;
+  height: 20px;
+}
+
+.hero__pill--left .pill-arrow { left: 124px; top: 0; }
+.hero__pill--right .pill-arrow { left: -0.51px; top: -1.39px; transform: scaleX(-1); }
+
+.hero__models {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.model-card {
+  margin: 0;
+  width: 320px;
+  aspect-ratio: 1 / 1;
+  max-width: 30vw;
+  border-radius: 32px 32px 0 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Figma positions each photo by hand (not a uniform center-crop), so each
+   model gets its own explicit size/offset relative to the 320x320 frame
+   instead of object-fit: cover, to keep faces framed exactly as designed. */
+.model-card img {
+  position: absolute;
+  max-width: none;
+  display: block;
+}
+
+.model-card--left img {
+  width: 100%;
+  height: 133.91%;
+  left: 0;
+  top: -5.86%;
+}
+
+.model-card--mid img {
+  width: 118.26%;
+  height: 159.35%;
+  left: -8.88%;
+  top: -3.63%;
+}
+
+.model-card--right img {
+  width: 100%;
+  height: 133.91%;
+  left: 0;
+  top: 0.1%;
+}
+
+.model-card figcaption {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1.25px solid #fff;
+  border-radius: 12px;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.model-card figcaption strong {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.72px;
+  color: #000;
+}
+
+.model-card figcaption span {
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: -0.14px;
+  color: var(--text-neutral);
+}
+
+/* ===== Partners ===== */
+.partners {
+  padding: 46px 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  background: var(--surface-bg-default);
+}
+
+.partners__eyebrow {
+  text-align: center;
+}
+
+.partners__logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 80px;
+}
+
+.partner-logo { height: 24px; width: auto; opacity: 0.85; }
+
+/* ===== Features ===== */
+.features {
+  padding: 50px 130px 100px;
+  background: var(--surface-bg-default);
+}
+
+/* Figma's intro row is a true left/right split: the heading takes the
+   remaining space and wraps to two lines on its own, while the lede stays
+   pinned to a fixed 442px column on the right — not a stack. */
+.features__intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: nowrap;
+  margin-bottom: 32px;
+}
+
+.features__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 52px;
+  line-height: 56px;
+  letter-spacing: -3.12px;
+}
+
+.features__lede {
+  flex: 0 0 442px;
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: var(--text-neutral);
+  max-width: 442px;
+  margin: 0;
+}
+
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.feature-card {
+  background: var(--surface-bg-alt);
+  border-radius: 24px;
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 250px;
+}
+
+/* Each icon is a hand-placed crop in Figma (own size + zoom/offset), not a
+   uniform "contain" fit — replicate the exact frame per icon. */
+.feature-card__icon {
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.feature-card__icon img {
+  position: absolute;
+  max-width: none;
+  display: block;
+}
+
+.feature-card__icon--credit-cards img {
+  width: 121.94%;
+  height: 182.9%;
+  left: -10.9%;
+  top: -41.44%;
+}
+
+.feature-card__icon--banking img {
+  width: 100%;
+  height: 150%;
+  left: 0;
+  top: -22.67%;
+}
+
+.feature-card__icon--multicurrency {
+  width: 68px;
+}
+
+.feature-card__icon--multicurrency img {
+  width: 118.14%;
+  height: 133.89%;
+  left: -8.19%;
+  top: -15.65%;
+}
+
+.feature-card__icon--rewards img {
+  width: 100%;
+  height: 150%;
+  left: 0;
+  top: -24.65%;
+}
+
+.feature-card h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.96px;
+  color: var(--text-body);
+  margin: 0;
+}
+
+.feature-card p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  color: var(--text-neutral);
+  margin: 0;
+  flex: 1;
+}
+
+/* ===== How it works ===== */
+.how-it-works {
+  padding: 100px 130px;
+  background: var(--surface-bg-alt);
+}
+
+.how-it-works__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 52px;
+}
+
+.how-it-works__header .section-heading {
+  margin-top: 8px;
+}
+
+.how-it-works__lede {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: var(--text-neutral);
+  max-width: 442px;
+  margin: 0;
+}
+
+.how-it-works__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.step {
+  border-top: 1px solid var(--border-default);
+  padding-top: 25px;
+}
+
+.step h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -0.8px;
+  color: var(--text-body);
+  margin: 10px 0 8px;
+}
+
+.step p:last-child {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  color: var(--text-neutral);
+  margin: 0;
+}
+
+/* ===== Chapters ===== */
+.chapters {
+  background: var(--surface-bg-default);
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.chapters__heading {
+  padding-left: 128px;
+}
+
+.chapters__heading .section-heading {
+  font-size: 48px;
+}
+
+/* Auto-playing marquee: overflow is hidden (no scrollbar, no manual drag)
+   and .chapters__track animates continuously. The track holds the 6 cards
+   twice back to back; translating it exactly one set-width-plus-gap to the
+   left lines the second copy up pixel-for-pixel where the first started,
+   so the loop reset is invisible. -2058px = 6 cards * (320px + 23px gap). */
+.chapters__scroller {
+  overflow: hidden;
+  width: 100%;
+}
+
+.chapters__track {
+  display: flex;
+  gap: 23px;
+  width: max-content;
+  animation: chapters-marquee 32s linear infinite;
+}
+
+.chapters__scroller:hover .chapters__track {
+  animation-play-state: paused;
+}
+
+@keyframes chapters-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-2058px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapters__track {
+    animation: none;
+  }
+}
+
+.chapter-card {
+  flex: 0 0 auto;
+  width: 320px;
+  height: 400px;
+  border-radius: 24px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.chapter-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(15, 15, 15, 0) 21%, rgba(15, 15, 15, 0.9) 80%);
+}
+
+.chapter-card__overlay {
+  position: relative;
+  z-index: 1;
+  padding: 28px;
+  color: var(--text-on-action);
+}
+
+.chapter-card__overlay h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.48px;
+  margin: 0 0 10px;
+}
+
+.chapter-card__overlay p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  margin: 0;
+  max-width: 245px;
+}
+
+.play-button {
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+  background: var(--surface-bg-default);
+  box-shadow: 0 16px 20px rgba(17, 17, 17, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--surface-bg-action);
+}
+
+/* ===== Why Maxim ===== */
+.why-maxim {
+  background: var(--surface-bg-action);
+  padding: 100px 130px;
+}
+
+.why-maxim__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.why-maxim__title h2 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 52px;
+  line-height: 56px;
+  letter-spacing: -3.12px;
+  color: var(--text-on-action);
+  margin: 12px 0 0;
+  max-width: 392px;
+}
+
+.why-maxim__body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 556px;
+  padding-top: 5px;
+}
+
+.why-maxim__body p {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: var(--text-disabled);
+  margin: 0;
+}
+
+.why-maxim__subeyebrow {
+  letter-spacing: 1.82px;
+  margin: 24px 0 16px;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #2d2d2d;
+  border: 1px solid #2d2d2d;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.value-card {
+  background: var(--surface-bg-action);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.value-card h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.48px;
+  color: var(--text-on-action);
+  margin: 0;
+}
+
+.value-card p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--text-disabled);
+  margin: 0;
+}
+
+/* ===== Testimonials ===== */
+.testimonials {
+  background: var(--surface-bg-default);
+  padding: 100px 130px;
+}
+
+.testimonials__heading {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.testimonials__scroller {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* older Edge/IE */
+}
+
+.testimonials__scroller::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, newer Edge */
+}
+
+.testimonial-card {
+  margin: 0;
+  flex: 0 0 auto;
+  width: 220px;
+}
+
+.testimonial-card__media {
+  height: 353px;
+  border-radius: 24px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-button--sm {
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  font-size: 16px;
+}
+
+.testimonial-card figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 4px 0;
+}
+
+.testimonial-card figcaption strong {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text-body);
+}
+
+.testimonial-card figcaption span {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-neutral);
+}
+
+/* ===== Rewards ===== */
+.rewards {
+  background: var(--surface-bg-warning);
+  padding: 100px 130px;
+}
+
+.rewards__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+}
+
+.rewards__copy {
+  flex: 1 1 480px;
+  max-width: 572px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rewards__copy .section-heading {
+  font-size: 48px;
+}
+
+.rewards__copy p {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: var(--text-neutral);
+  max-width: 480px;
+  margin: 0;
+}
+
+.rewards__copy .btn {
+  align-self: flex-start;
+}
+
+/* Figma sizes Restaurants/Wellness (col 1) at 115px tall, and floats
+   Travel/Cashback (col 2) 24px lower at a shorter 91px — both add up to
+   the same 115px row, but col 2 reads as a smaller card offset within it. */
+.rewards__grid {
+  flex: 1 1 480px;
+  max-width: 552px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 115px);
+  gap: 16px;
+}
+
+.reward-tile {
+  position: relative;
+  background: var(--surface-bg-default);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.05);
+  padding: 24px;
+  overflow: hidden;
+}
+
+.reward-tile--travel,
+.reward-tile--cashback {
+  align-self: start;
+  margin-top: 24px;
+  height: 91px;
+}
+
+.reward-tile--dark {
+  background: var(--surface-bg-action);
+}
+
+.reward-tile h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.36px;
+  color: var(--text-body);
+  margin: 0 0 4px;
+}
+
+/* Must come after the base `.reward-tile h3` rule — same specificity, so
+   source order decides, and the dark-card override needs to win. */
+.reward-tile--dark h3 {
+  color: var(--text-on-action);
+}
+
+.reward-tile p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-neutral);
+  margin: 0;
+}
+
+/* Icons are oversized relative to the card and pushed past its bottom
+   edge on purpose — the card's own `overflow: hidden` crops them, which
+   is the "bleeding off the card" look from the design. */
+.reward-icon-group {
+  position: absolute;
+  right: 10px;
+  width: 80px;
+  height: 80px;
+}
+
+.reward-icon-group--dining {
+  top: 44.1px;
+}
+
+.reward-icon {
+  position: absolute;
+}
+
+.reward-icon--fork {
+  left: 20px;
+  top: 1.16px;
+  width: 13.232px;
+  height: 77.686px;
+}
+
+.reward-icon--knife {
+  left: 49.2px;
+  top: 1.16px;
+  width: 10.763px;
+  height: 77.685px;
+}
+
+.reward-icon--corner {
+  position: absolute;
+  right: 10px;
+  width: 80px;
+  height: 80px;
+}
+
+.reward-tile--travel .reward-icon--corner,
+.reward-tile--cashback .reward-icon--corner {
+  top: 24px;
+}
+
+.reward-tile--wellness .reward-icon--corner {
+  top: 45.2px;
+}
+
+/* ===== FPL ===== */
+.fpl {
+  background: var(--surface-bg-primary);
+  padding: 100px 130px;
+}
+
+.fpl__inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.fpl__copy {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  min-width: 300px;
+}
+
+.fpl__copy .section-heading {
+  font-size: 48px;
+}
+
+/* Dedicated class instead of a bare `.fpl__copy p` selector — that selector
+   is more specific than `.eyebrow--accent` (class+element beats class alone)
+   and was silently overriding the eyebrow's blue back to neutral gray since
+   the eyebrow is also a <p> inside .fpl__copy. */
+.fpl__lede {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: var(--text-neutral);
+  max-width: 460px;
+  margin: 0;
+}
+
+.fpl__copy .btn {
+  align-self: flex-start;
+  margin-top: 15px;
+}
+
+/* Figma pins this to a fixed 540px (it doesn't grow or shrink to balance
+   with the text column) — flex-grow/shrink: 0 keeps that, while max-width
+   still lets it yield on narrow viewports instead of overflowing. */
+/* Figma hand-crops this photo (not a uniform center-crop) — the image is
+   127.63% wide / 130.27% tall relative to the 540x353 frame, offset
+   left:-25.69% top:-1.54%, so replicate that exact placement instead of
+   object-fit: cover. */
+.fpl__image {
+  position: relative;
+  flex: 0 0 540px;
+  width: 540px;
+  height: 353px;
+  max-width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.fpl__image img {
+  position: absolute;
+  width: 127.63%;
+  height: 130.27%;
+  left: -25.69%;
+  top: -1.54%;
+  max-width: none;
+}
+
+/* ===== Articles ===== */
+.articles {
+  background: var(--surface-bg-default);
+  padding: 100px 130px;
+}
+
+.articles__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 44px;
+}
+
+.articles__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.article-card {
+  background: var(--surface-bg-alt);
+  border-radius: 22px;
+  overflow: hidden;
+  display: block;
+}
+
+.article-card__media {
+  height: 254px;
+  background-size: cover;
+  background-position: center;
+}
+
+.article-card__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.article-card__tag {
+  font-size: 12px;
+  letter-spacing: 1.92px;
+  margin: 0;
+}
+
+.article-card__body h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.8px;
+  color: var(--text-headings);
+  margin: 0;
+}
+
+/* ===== Confidence ===== */
+.confidence {
+  background: var(--surface-bg-alt);
+  padding: 100px 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 17px;
+}
+
+.confidence p {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: var(--text-neutral);
+  max-width: 691px;
+  margin: 0;
+}
+
+/* ===== FAQ ===== */
+.faq {
+  background: var(--surface-bg-default);
+  padding: 100px 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.faq__inner {
+  max-width: 840px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.faq-item {
+  background: var(--surface-bg-default);
+  border: 1px solid var(--border-disabled);
+  border-radius: 16px;
+  padding: 23px 27px;
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text-body);
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-toggle {
+  font-family: var(--font-body);
+  font-size: 22px;
+  color: var(--text-accent);
+  flex-shrink: 0;
+  margin-left: 16px;
+  transition: transform 0.2s ease;
+}
+
+.faq-item[open] .faq-toggle {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--text-neutral);
+  margin: 16px 0 0;
+}
+
+/* ===== CTA ===== */
+.cta {
+  position: relative;
+  background: var(--surface-bg-action);
+  padding: 107px 270px 90px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Figma pins this layer to a fixed 680px tall box at the very top of the
+   section (not stretched to the section's actual content height) — it
+   deliberately overflows the ~584px Pre-footer frame and gets cropped by
+   the section's own overflow: hidden, the same overflow-crop technique
+   used for the hero sky. It's also flipped vertically (scaleY(-1)) before
+   compositing in overlay mode, and cropped from the bottom of the source
+   image — both needed to match the exact pattern/gradient direction. */
+.cta__glass {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 680px;
+  transform: scaleY(-1);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.cta__glass img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+/* No max-width here: in Figma the heading spans the full 900px content
+   box (bounded by the section's own 270px side padding), and only the
+   paragraph below it is constrained narrower — see .cta__lede. Capping
+   the whole block at 640px squeezed the heading into a too-narrow box
+   and forced an extra, unintended line break. */
+.cta__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.cta__content h2 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 60px;
+  line-height: 64px;
+  letter-spacing: -3.6px;
+  color: var(--text-on-action);
+  margin: 0;
+}
+
+/* Figma's italic run here is Playfair Display Italic at font-weight 400
+   ("normal"), not the 500 used by .section-heading em elsewhere on the
+   page — this h2 is a bare element, so the global italic rule never
+   reached it. */
+.cta__content h2 em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 66px;
+}
+
+/* Dedicated class instead of a bare `.cta__content p` selector — that
+   selector is more specific than `.cta__fineprint` (class+element beats
+   class alone) and was silently overriding the fineprint's smaller size
+   and color, since the fineprint is also a <p> inside .cta__content. */
+.cta__lede {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: var(--text-disabled);
+  max-width: 606px;
+  margin: 0;
+}
+
+.cta__fineprint {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-neutral);
+  margin: 0;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background: #0a0a0a;
+  padding: 72px 130px 40px;
+}
+
+.site-footer__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid #181b25;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 300px;
+}
+
+.logo--footer { margin-bottom: 0; }
+
+.footer-brand p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.15px;
+  color: var(--text-disabled);
+  margin: 0;
+}
+
+.footer-social {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-social a {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-disabled);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 140px;
+}
+
+.footer-col h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.14px;
+  color: var(--text-on-action);
+  margin: 0;
+}
+
+.footer-col a {
+  font-family: var(--font-body);
+  font-size: 15px;
+  letter-spacing: -0.15px;
+  color: var(--text-disabled);
+}
+
+.footer-asterisk {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px 0;
+}
+
+.footer-actions .region-select {
+  background: var(--surface-bg-action);
+  border-color: #181b25;
+  color: var(--text-neutral);
+}
+
+.store-badges {
+  display: flex;
+  gap: 26px;
+}
+
+.store-badges img {
+  height: 40px;
+  width: auto;
+}
+
+.appstore-badge {
+  position: relative;
+  display: inline-block;
+  width: 140px;
+  height: 40px;
+}
+
+.store-badges .appstore-badge__bg {
+  width: 100%;
+  height: 100%;
+}
+
+.store-badges .appstore-badge__glyph {
+  position: absolute;
+  filter: brightness(0) invert(1);
+}
+
+.store-badges .appstore-badge__glyph--icon {
+  left: 20px;
+  top: 8px;
+  width: 19px;
+  height: 23px;
+}
+
+.store-badges .appstore-badge__glyph--line1 {
+  left: 47px;
+  top: 18px;
+  width: 73px;
+  height: 16px;
+}
+
+.store-badges .appstore-badge__glyph--line2 {
+  left: 48px;
+  top: 8px;
+  width: 71px;
+  height: 6px;
+}
+
+.footer-disclosure,
+.footer-copyright {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.13px;
+  color: var(--text-neutral);
+  margin: 0 0 12px;
+}
+
+.footer-copyright {
+  margin-top: 20px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1400px) {
+  .features,
+  .how-it-works,
+  .why-maxim,
+  .testimonials,
+  .rewards,
+  .articles {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  .partners { padding-left: 60px; padding-right: 60px; }
+  .chapters__heading { padding-left: 60px; }
+  .fpl,
+  .confidence { padding-left: 90px; padding-right: 90px; }
+  .faq { padding-left: 60px; padding-right: 60px; }
+  .cta { padding-left: 90px; padding-right: 90px; }
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .site-footer { padding-left: 60px; padding-right: 60px; }
+}
+
+@media (max-width: 1100px) {
+  .hero-title { font-size: 48px; line-height: 46px; }
+  .features__intro { flex-wrap: wrap; }
+  .features__lede { flex: 1 1 320px; max-width: 100%; }
+  .features__grid { grid-template-columns: repeat(2, 1fr); }
+  .how-it-works__steps { grid-template-columns: 1fr; gap: 32px; }
+  .why-maxim__header { flex-direction: column; }
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+  .rewards__inner,
+  .fpl__inner { flex-direction: column; }
+  .articles__grid { grid-template-columns: 1fr; }
+  .cta__content h2 { font-size: 44px; line-height: 48px; }
+  .footer-top { flex-direction: column; gap: 32px; }
+  .footer-asterisk { position: static; margin-top: 24px; }
+}
+
+@media (max-width: 720px) {
+  .top-nav__links { display: none; }
+  .hero-title { font-size: 36px; line-height: 36px; letter-spacing: -1px; }
+  .hero__models { gap: 12px; }
+  .model-card { width: min(320px, 27vw); }
+  .hero__pill { display: none; }
+  .features,
+  .how-it-works,
+  .why-maxim,
+  .testimonials,
+  .rewards,
+  .articles,
+  .faq {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .fpl,
+  .confidence,
+  .cta { padding-left: 24px; padding-right: 24px; }
+  .chapters__heading { padding-left: 24px; }
+  .features__grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr; }
+  .section-heading { font-size: 34px; line-height: 38px; letter-spacing: -1.5px; }
+  .why-maxim__title h2 { font-size: 34px; line-height: 38px; }
+  .cta__content h2 { font-size: 32px; line-height: 36px; }
+  .email-capture { flex-direction: column; align-items: stretch; padding: 8px; border-radius: 20px; }
+  .email-capture input { padding: 8px; }
+  .email-capture .btn { width: 100%; }
+}
