@@ -2,6 +2,8 @@
 
 Landing page for Maxim — a UK fintech app helping Africans in the UK build credit history, bank, and send money home.
 
+Live: https://maxim-homepage.vercel.app/
+
 Static site: plain HTML/CSS/JS, no build step or framework.
 
 ## Local development
